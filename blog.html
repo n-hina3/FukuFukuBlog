@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog View | FukuFukuBlog</title>
+    <link rel="icon" href="dinosaurs2.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+      /* --- UX改善: ローディング表示 --- */
+      .loading-skeleton {
+        animation: pulse-bg 1.5s infinite;
+        background-color: #eee;
+        color: transparent !important;
+        border-radius: 4px;
+        user-select: none;
+      }
+      @keyframes pulse-bg {
+        0% { background-color: #eee; }
+        50% { background-color: #ddd; }
+        100% { background-color: #eee; }
+      }
+
+      /* --- Theme: Aoi (葵) - 透明感のある日記スタイル --- */
+      body.theme-aoi {
+        --primary: #3d5588; /* 葵ブルー */
+        --accent: #ffab91;
+        --bg: #f4f7fa;
+        background-color: var(--bg);
+        font-family: "Noto Sans JP", sans-serif;
+        background-image: 
+          linear-gradient(to right, rgba(61, 85, 136, 0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(61, 85, 136, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      body.theme-aoi .blog-profile-header {
+        background: #fff;
+        border-bottom: 4px solid var(--primary);
+        box-shadow: 0 10px 30px rgba(61, 85, 136, 0.05);
+      }
+      body.theme-aoi #blog-title {
+        color: var(--primary);
+        letter-spacing: 0.15em;
+        font-weight: 500;
+      }
+      body.theme-aoi .profile-avatar {
+        border: 4px solid #e3f2fd;
+      }
+      body.theme-aoi .post-card {
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      body.theme-aoi .post-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(61, 85, 136, 0.1);
+      }
+      body.theme-aoi .category-label {
+        background-color: var(--primary);
+        border-radius: 0 0 8px 0;
+      }
+
+      /* --- Header Adjustment --- */
+      .blog-profile-header {
+        position: relative;
+        padding-top: 100px; /* ヘッダー被り防止 */
+        padding-bottom: 60px;
+      }
+      .profile-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        text-align: left;
+      }
+      
+      /* プロフィールレイアウト調整 (PC) */
+      @media (min-width: 769px) {
+        .profile-avatar {
+          width: 140px;
+          height: 140px;
+          margin: 0; /* 中央寄せ解除 */
+          flex-shrink: 0;
+        }
+        .profile-text {
+          max-width: 600px;
+        }
+        #blog-title {
+          font-size: 2.5rem;
+          margin-bottom: 15px;
+        }
+        #blog-desc {
+          font-size: 1rem;
+          margin-bottom: 20px;
+        }
+      }
+
+      /* プロフィールレイアウト調整 (Mobile) */
+      @media (max-width: 768px) {
+        .profile-inner {
+          flex-direction: column;
+          text-align: center;
+          gap: 20px;
+        }
+        .profile-text {
+          width: 100%;
+        }
+        #blog-title {
+          font-size: 1.8rem;
+        }
+      }
+
+      /* --- Sort Controls UI --- */
+      .header-sort-controls {
+        margin-top: 20px;
+        background: rgba(0,0,0,0.03);
+        display: inline-flex;
+        padding: 5px;
+        border-radius: 50px;
+      }
+      .header-sort-controls button {
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        transition: all 0.3s;
+      }
+      .header-sort-controls button.active {
+        background: #fff;
+        color: var(--primary);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      .header-sort-controls button.active::after {
+        display: none; /* 下線を消してボタン風に */
+      }
+      .sort-divider {
+        display: none; /* 区切り線不要 */
+      }
+
+      /* --- ARG: Staff Gate (Hidden) --- */
+      .staff-gate-container {
+        margin-top: 40px;
+        opacity: 0;
+        transition: opacity 0.5s;
+        text-align: center;
+      }
+      .staff-gate-container:hover {
+        opacity: 1;
+      }
+      .staff-link-btn {
+        font-family: "Jost", sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        color: #ddd;
+        border: 1px solid #ddd;
+        padding: 10px 20px;
+        border-radius: 4px;
+        text-transform: uppercase;
+      }
+      .staff-link-btn:hover {
+        background: #333;
+        color: #fff;
+        border-color: #333;
+      }
+
+    </style>
+  </head>
+  <body id="blog-body">
+    <div class="texture-overlay"></div>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <h1 class="logo">
+          <a href="index.html"> <span class="logo-mark">F</span>FukuFukuBlog </a>
+        </h1>
+
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="メニュー">
+          <span></span><span></span><span></span>
+        </button>
+
+        <div class="header-actions">
+          <div class="search-wrapper">
+            <input type="text" id="arg-search" placeholder="Search..." autocomplete="off" />
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <nav class="site-nav" id="site-nav">
+            <a href="index.html">HOME</a>
+            <a href="about.html">ABOUT</a>
+            <a href="contact.html">CONTACT</a>
+            <a href="privacy.html">PRIVACYPOLICY</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="blog-profile-header">
+      <div class="profile-inner">
+        <div class="profile-avatar loading-skeleton" id="profile-img"></div>
+        
+        <div class="profile-text">
+          <h1 id="blog-title" class="loading-skeleton" style="display:inline-block; min-width: 200px;">Loading...</h1>
+          <p id="blog-desc" class="loading-skeleton" style="min-width: 300px;">...</p>
+          
+          <div class="profile-meta">
+            <span id="profile-name">Name</span>
+            <span class="divider">/</span>
+            <span id="profile-bio">Bio...</span>
+          </div>
+
+          <div class="header-sort-controls" id="sort-area">
+            <button id="sort-new" class="active">Newest</button>
+            <button id="sort-old">Oldest</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container blog-container">
+      <main id="main-content" class="post-grid">
+        <article class="post-card">
+          <div class="card-thumb loading-skeleton"></div>
+          <div class="card-content">
+            <div class="loading-skeleton" style="height: 1em; width: 30%; margin-bottom: 10px;"></div>
+            <div class="loading-skeleton" style="height: 1.5em; width: 80%; margin-bottom: 10px;"></div>
+            <div class="loading-skeleton" style="height: 1em; width: 100%;"></div>
+          </div>
+        </article>
+        <article class="post-card">
+          <div class="card-thumb loading-skeleton"></div>
+          <div class="card-content">
+            <div class="loading-skeleton" style="height: 1em; width: 30%; margin-bottom: 10px;"></div>
+            <div class="loading-skeleton" style="height: 1.5em; width: 80%; margin-bottom: 10px;"></div>
+            <div class="loading-skeleton" style="height: 1em; width: 100%;"></div>
+          </div>
+        </article>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="copyright">&copy; 2025 FukuFukuBlog.</p>
+        
+        <div class="staff-gate-container">
+          <a href="login.html" class="staff-link-btn">
+            <i class="fa-solid fa-lock"></i> Staff Login
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <div id="secret-overlay" class="hidden">
+      <div class="glitch-effect"></div>
+      <div class="secret-window">
+        <button id="close-secret"><i class="fa-solid fa-xmark"></i></button>
+        <div class="console-header">
+          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+          <span class="console-title">PRIVATE_ARCHIVE_ACCESS</span>
+        </div>
+        <div class="secret-body">
+          <p class="system-msg">> Access granted.</p>
+          <div class="truth-content">
+            <h2>継承の記録</h2>
+            <p>
+              葵は行ってしまった。でも、この場所をなくしたくなかった。<br />
+              だから私がこっそり続けている。
+            </p>
+            <div class="final-message">
+              <p>真実を知ったあなたへ。</p>
+              <a href="ending.html" class="btn-primary">運命を選択する <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

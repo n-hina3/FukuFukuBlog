@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>△○□ - 撮影体験記 Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Noto Sans JP"', "sans-serif"],
+            },
+            colors: {
+              brand: {
+                orange: "#FF5722",
+                dark: "#1a1a1a",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      .overlay-transition { transition: opacity 0.5s ease, visibility 0.5s ease; }
+      .nav-item-line { position: relative; white-space: nowrap; }
+      .nav-item-line::after {
+        content: ""; display: inline-block; width: 150vw; height: 1px;
+        background-color: rgba(255, 255, 255, 0.3); vertical-align: middle;
+        margin-left: 1rem; transition: background-color 0.3s ease;
+      }
+      .nav-item-container:hover .nav-item-line::after { background-color: #ffffff; }
+      .bg-layer-image { transition: opacity 0.5s ease; }
+    </style>
+  </head>
+  <body class="font-sans h-screen w-screen overflow-hidden flex flex-col md:flex-row relative">
+    
+    <div class="absolute inset-0 z-[-20] bg-[#333333] transition-colors duration-500"></div>
+    <div id="global-bg-image" class="absolute inset-0 z-[-10] bg-cover bg-center opacity-0 bg-layer-image"
+      style="background-image: url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop');">
+      <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <nav id="left-nav" class="w-full md:w-[12.5%] h-20 md:h-full bg-transparent text-white flex flex-col px-6 relative border-r border-white/20 z-0 pt-8 pb-8">
+      <div class="mb-6 relative flex-shrink-0">
+        <span class="text-xs font-bold tracking-widest text-white/70">INDEX</span>
+      </div>
+
+      <ul class="space-y-6 relative overflow-y-auto no-scrollbar h-full pr-4">
+        <li class="nav-item-container"><button onclick="scrollToArticle('col1', 'article-1')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">01. 灰色のキャンバス</div></button></li>
+        <li class="nav-item-container"><button onclick="scrollToArticle('col1', 'article-2')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">02. 予感</div></button></li>
+        <li class="nav-item-container"><button onclick="scrollToArticle('col1', 'article-3')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">03. 2023: 衝動</div></button></li>
+        <li class="nav-item-container"><button onclick="scrollToArticle('col1', 'article-4')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">04. 2023: 音を拾う</div></button></li>
+        
+        <li class="nav-item-container"><button onclick="scrollToArticle('col2', 'article-5')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">05. 2023: 夕陽を追いかけて</div></button></li>
+        <li class="nav-item-container"><button onclick="scrollToArticle('col2', 'article-6')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">06. 2023: 光の箱</div></button></li>
+        <li class="nav-item-container"><button onclick="scrollToArticle('col2', 'article-7')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">07. 2024: 再訪</div></button></li>
+        <li class="nav-item-container"><button onclick="scrollToArticle('col2', 'article-8')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">08. 2024: 異界の路地</div></button></li>
+
+        <li class="nav-item-container"><button onclick="scrollToArticle('col3', 'article-9')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">09. 2024: 演じる私</div></button></li>
+        <li class="nav-item-container"><button onclick="scrollToArticle('col3', 'article-10')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">10. 2024: 阿吽の呼吸</div></button></li>
+        <li class="nav-item-container"><button onclick="scrollToArticle('col3', 'article-11')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">11. 記号の定義</div></button></li>
+        <li class="nav-item-container"><button onclick="scrollToArticle('col3', 'article-12')" class="group text-left block w-full outline-none"><div class="nav-item-line text-sm md:text-base font-bold transition-opacity duration-300 group-hover:opacity-80 text-white">12. あなたへ</div></button></li>
+      </ul>
+
+      <div class="mt-4 hidden md:block flex-shrink-0 pt-4 border-t border-white/20">
+        <p class="text-xs text-white/50">&copy; 2024 △○□ Project.</p>
+      </div>
+    </nav>
+
+    <main class="flex-1 flex flex-row h-[calc(100%-5rem)] md:h-full overflow-hidden relative z-10 pointer-events-none md:pointer-events-auto gap-1 px-1">
+      
+      <div id="col1" class="flex-1 h-full overflow-y-auto no-scrollbar p-0 space-y-1 snap-y snap-mandatory scroll-smooth">
+        <article id="article-1" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.01 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">灰色のキャンバス</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>「福井には何もない」。昔、私は本気でそう思っていました。通学路から見える景色は、いつも彩度の低い灰色で、どこかへ行きたいという焦燥感を抱えながら、イヤホンで耳を塞ぐだけの学生生活を送っていました。</p>
+            <br><p>県外の大学への進学が叶わず、仕方なくここに残った後ろめたさが、私の視界から色を奪っていたのかもしれません。</p>
+            <br><p>でも、それは間違いでした。街が灰色だったのではなく、私がまだ、カメラのレンズを通した世界を知らなかっただけだったのです。世界は、レンズ一枚隔てるだけで、こんなにも鮮やかに発色するということを、この時の私はまだ知りませんでした。</p>
+          </div>
+        </article>
+
+        <article id="article-2" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.05 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">予感</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>転機は唐突に訪れました。大学の教室で、久しぶりに再会した友人が私の前の席に座りました。中学時代からの腐れ縁である彼女は、私とは対照的にいつもエネルギッシュで、何か面白いことを企んでいる目をしています。</p>
+            <br><p>「ねえ、一緒に映画作らない？」</p>
+            <br><p>彼女は唐突に切り出しました。「ふくいムービーハッカソン」というイベントがあるらしい。たった3日間で、プロの映画監督と一緒に短編映画を作るのだといいます。「私、制作進行やるからさ。あんた、音とか興味ない？ 耳いいじゃん」。根拠のない推薦でしたが、彼女の真っ直ぐな視線に、私は思わず頷いてしまいました。退屈な日常に風穴を開けたい。心のどこかで、そう願っていたのかもしれません。それが、私たちが動き出した最初の日でした。</p>
+          </div>
+        </article>
+
+        <article id="article-3" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.08 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">2023: 衝動</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>2023年の夏、私たちは初めて現場に飛び込みました。参加作品は、沖田かおり監督の『super sunset』。「主演映画が福井で上映されるまで帰らない」と宣言して上京した主人公・アミが、夢に破れて故郷に戻ってくる物語です。</p>
+            <br><p>脚本を読んだ時、胸が締め付けられました。都会に憧れ、でも踏み出せずにいる私と、傷ついて戻ってきたアミ。立場は違うけれど、抱えている「居心地の悪さ」が似ている気がしたのです。</p>
+            <br><p>集合場所の新栄商店街は、異様な熱気に包まれていました。東京から来たプロの監督、鋭い眼光のカメラマン、そして地元から集まった役者志望の人々。「3日間で撮りきるぞ！」誰かの掛け声とともに、クレイジーで、愛おしい時間が動き出しました。</p>
+          </div>
+        </article>
+
+        <article id="article-4" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.12 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">2023: 音を拾う</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>私の役割は「録音助手」でした。ブームポールと呼ばれる長い棒の先にマイクを付け、役者さんの声や環境音を拾う仕事です。これが想像以上に重いのです。腕はすぐにパンパンになり、少しでも気を抜くとマイクがフレーム（画面）に入り込んでしまいます。「マイク、入ってるよ！」カメラマンさんから注意が飛ぶたびに、身体が縮こまる思いでした。</p>
+            <br><p>一方で、相棒の彼女は「制作進行」として現場を駆け回っていました。ロケ弁の手配、スケジュールの管理、通行人の整理。「はい、本番いきまーす！」とカチンコを鳴らす彼女の背中は、私よりもずっと大きく、頼もしく見えました。それぞれの持ち場で、必死に食らいつく私たち。目が合うだけで「頑張ろう」と言われている気がしました。</p>
+          </div>
+        </article>
+      </div>
+
+      <div id="col2" class="flex-1 h-full overflow-y-auto no-scrollbar p-0 space-y-1 snap-y snap-mandatory scroll-smooth">
+        <article id="article-5" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.15 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">2023: 夕陽を追いかけて</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>映画のタイトル通り、この作品には美しい夕陽のシーンが必要でした。撮影2日目の夕方、私たちは「マジックアワー」と呼ばれる数分間の奇跡を捉えるために、機材を担いで走りました。福井の空が、燃えるようなオレンジ色から深い藍色へとグラデーションを描いていく。「回して！ 今！」監督の合図で、カメラが回り、マイクを向ける。</p>
+            <br><p>ファインダー越しに見る福井の街は、私が知っている「灰色の街」ではありませんでした。駅ビルやマンションの影、川面の煌めき、そして夕陽に照らされた役者さんの横顔。すべてが物語の一部として輝いていました。「この街、こんなに綺麗だったんだ」。ヘッドフォンから聞こえる風の音を聞きながら、私は初めて、この場所に生まれてよかったと思ったのです。</p>
+          </div>
+        </article>
+
+        <article id="article-6" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.18 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">2023: 光の箱</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>完成した作品の上映は、地元の映画館「テアトルサンク」で行われました。大きなスクリーンいっぱいに映し出される、私たちが撮った映像。暗闇の中で、観客の息遣いを感じる。笑い声が起き、すすり泣く声が聞こえる。私たちの作ったものが、誰かの心に届いている。その事実に震えました。</p>
+            <br><p>そして、エンドロール。自分の名前を見つけた瞬間、涙が溢れて止まりませんでした。それは、私がこの世界に存在し、何かを成し遂げたという、初めての確かな証明でした。3日間の魔法のような時間は、こうして幕を閉じました。</p>
+          </div>
+        </article>
+
+        <article id="article-7" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.20 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">2024: 再訪</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>あれから1年。私たちは再び、あの熱狂の中にいました。2024年の参加作品は、福田茜監督の『Sweet Silly Dance Night』。不思議なマスクを被った者たちが集う、奇妙でポップな世界観の作品です。2度目の参加となる今回は、私たちにも少し余裕が生まれていました。</p>
+            <br><p>相棒は相変わらず制作進行として現場を仕切り、私は録音部として、よりクリアな音を求めてマイクの位置を工夫できるようになっていました。「また会ったね」。昨年の現場で一緒だったカメラマンさんや、顔なじみのスタッフさんと挨拶を交わす。1年前は「お客さん」のような気分だったけれど、今年は「チームの一員」として迎え入れられている実感がありました。それがとても誇らしかったです。</p>
+          </div>
+        </article>
+
+        <article id="article-8" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.22 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">2024: 異界の路地</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>今年の撮影のメイン舞台は、新しくできた施設「MINIE（ミニエ）」の裏通りでした。普段はただの路地が、照明と美術の力で、異界への入り口へと変貌します。スモークが焚かれ、赤と緑の怪しげな光が漏れる。日常の風景を「ロケ地」として見立てるだけで、見慣れた街がこんなにも表情を変えるなんて。</p>
+            <br><p>映画制作は、街の「再発見」の連続です。「ここの壁の質感、いいよね」「この通りの奥行き、使えるね」。プロのスタッフたちの視点を借りることで、私の「解像度」も上がっていくのを感じました。今では街を歩いていても、「あ、ここ撮影に使えそう」なんて考えてしまう自分がいます。</p>
+          </div>
+        </article>
+      </div>
+
+      <div id="col3" class="flex-1 h-full overflow-y-auto no-scrollbar p-0 space-y-1 snap-y snap-mandatory scroll-smooth">
+        <article id="article-9" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.25 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">2024: 演じる私</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>今年は、新しい挑戦がありました。「エキストラ、足りないから入って！」監督の一言で、急遽私も衣装を着てカメラの前に立つことになったのです。奇妙なマスクを被り、不思議なダンスを踊る群衆の一人。マイクを持つ側から、向けられる側へ。レンズの向こう側は、想像以上に孤独で、緊張する場所でした。</p>
+            <br><p>「自然に！ もっと楽しんで！」指示が飛び交う中、必死に身体を動かす。でも、カットがかかった瞬間、相棒がカチンコを持ちながら親指を立ててくれました。その笑顔に救われて、私はなんとか演じきることができました。作る側と、演じる側。両方の視点を知れたことは、私にとって大きな財産になりました。</p>
+          </div>
+        </article>
+
+        <article id="article-10" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.27 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">2024: 阿吽の呼吸</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>2年目ともなると、相棒との連携も「阿吽の呼吸」になってきました。彼女が次に何をしようとしているか、目を見ればなんとなく分かります。現場が押してピリピリしてきた時、彼女が絶妙なタイミングで飲み物を差し入れたり、冗談を言って空気を和ませたりする。その隙に、私はマイクのケーブルを素早く捌いて、次のカットの準備を整える。</p>
+            <br><p>言葉にしなくても通じ合う、この感覚。「いいコンビだね」。スタッフの方にそう言われた時、私たちは顔を見合わせて笑ってしまいました。凸凹な私たちだけど、映画という共通の目的がある時だけは、最強のバディになれる。そんな関係性が、とても心地よかったのです。</p>
+          </div>
+        </article>
+
+        <article id="article-11" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.29 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">記号の定義</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>二度の夏を駆け抜け、機材を片付けている時、ふと手元のレコーダーやカメラのボタンに目が止まりました。再生、録画、そして停止。私たちが無我夢中で押してきたその小さな図形たちは、いつしか単なる機能のマーク以上の意味を持つようになっていました。このZINEのタイトルに冠した「△」と「○」。これは、私たちが過ごした日々の象徴です。</p>
+            <br><p>「△（サンカク）」は、再生ボタンの形。そして、私たちが熱狂した「3」日間の形。一度は止まっていた私の時間を、彼女が、そして映画作りが、再び力強く動かしてくれました。前に進もうとする力の証です。「○（マル）」は、録画ボタンの形。レンズの形であり、経験ゼロ（0）からスタートした私たちの原点。何もないと思っていたこの街の風景を、人々の想いを、私たちはこの丸い窓を通して記録し続けてきました。</p>
+            <br><p>再生と録画。この二つを繰り返しながら、私たちは少しずつ大人になってきました。でも、手元のボタンには、実はもう一つ、「□」という記号が並んでいます。これについては、このZINEの表舞台では語りません。それは、「再生」でも「録画」でもない、私の中でまだ整理がついていない、ある「痛み」に似た感情だからです。</p>
+          </div>
+        </article>
+
+        <article id="article-12" class="snap-start bg-white p-8 md:p-10 shadow-xl flex flex-col justify-center min-h-[50vh]">
+          <div class="mb-6 border-b border-gray-200 pb-4">
+            <span class="text-xs text-gray-400 tracking-widest font-bold">2024.11.30 / ARCHIVE</span>
+            <h2 class="text-xl font-bold mt-2 text-gray-800">あなたへ</h2>
+          </div>
+          <div class="text-sm text-gray-600 leading-loose text-justify font-light">
+            <p>このZINEを最後まで読んでいただき、ありがとうございます。もし、この拙い記録を読んで、少しでも心が動いたなら。次はあなたの番です。カメラを持って、マイクを握って、街へ出てください。「福井には何もない」なんてことはありません。ここには、まだ誰も見つけていない物語が、路地の隅っこや、夕暮れの空に隠されています。</p>
+            <br><p>私はもうすぐ、この街を離れます。でも、ここで見つけた「熱」は、一生冷めることはないでしょう。</p>
+            <br><p>最後に。私たちがZINEに残せなかった「□（シカク）」の意味。そして、名前も記さなかった私たちの「本当の記録」。もし、その停止ボタンの先にある真実を知りたいと思う物好きな方がいれば、このページのどこかにある入り口を探してみてください。合言葉は、私たちがこのZINEを書き上げた、<strong>今月の数字</strong>です。</p>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <aside id="brand-section" class="hidden md:block w-[12.5%] h-full relative group cursor-pointer overflow-hidden z-20" onclick="toggleAbout()" onmouseenter="toggleGlobalBg(true)" onmouseleave="toggleGlobalBg(false)">
+      <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop');"></div>
+      <div class="absolute inset-0 bg-brand-orange transition-opacity duration-500 ease-in-out group-hover:opacity-0 flex items-center justify-center"></div>
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <h1 class="text-white text-5xl font-black tracking-widest" style="writing-mode: vertical-rl; text-orientation: mixed">△○□</h1>
+      </div>
+      <div class="absolute bottom-8 left-0 w-full text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <span class="text-sm tracking-widest uppercase border-b border-white pb-1">About Us</span>
+      </div>
+    </aside>
+
+    <div id="about-overlay" class="fixed inset-0 z-50 invisible opacity-0 overlay-transition flex items-center justify-center">
+      <div class="absolute inset-0 bg-cover bg-center grayscale" style="background-image: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-black/70"></div>
+      </div>
+
+      <div class="relative z-10 max-w-2xl p-8 text-white text-center">
+        <h2 class="text-5xl font-black mb-8 tracking-widest">△○□</h2>
+        <div class="h-1 w-24 bg-brand-orange mx-auto mb-8"></div>
+        <p class="text-lg leading-loose mb-8 font-light">私たちは、福井の日常を記録する学生ユニットです。<br />ZINE『撮影体験記』を読んでいただきありがとうございます。<br />このサイトは、物理ZINEのデジタルアーカイブとして制作しました。</p>
+        <div class="flex flex-col items-center space-y-2 mb-12">
+          <span class="text-sm text-gray-400">MEMBERS</span>
+          <span class="text-xl font-bold">Aoi Shibata & Hiyori Niwa</span>
+        </div>
+        
+        <div class="mb-8">
+            <p class="text-sm text-gray-400">More Information:</p>
+            <a href="../index.html" class="text-brand-orange hover:text-white transition-colors border-b border-brand-orange pb-1">FukuFukuBlog (Official)</a>
+        </div>
+
+        <button onclick="toggleAbout()" class="px-8 py-3 border border-white hover:bg-white hover:text-black transition-colors uppercase tracking-widest text-sm">Close</button>
+      </div>
+    </div>
+
+    <script>
+      function toggleAbout() {
+        const overlay = document.getElementById("about-overlay");
+        if (overlay.classList.contains("invisible")) {
+          overlay.classList.remove("invisible", "opacity-0");
+        } else {
+          overlay.classList.add("opacity-0");
+          setTimeout(() => { overlay.classList.add("invisible"); }, 500);
+        }
+      }
+      function scrollToArticle(colId, articleId) {
+        const column = document.getElementById(colId);
+        const article = document.getElementById(articleId);
+        if (column && article) {
+          column.scrollTo({ top: article.offsetTop, behavior: "smooth" });
+        }
+      }
+      function toggleGlobalBg(show) {
+        const globalBg = document.getElementById("global-bg-image");
+        if (show) { globalBg.classList.remove("opacity-0"); } else { globalBg.classList.add("opacity-0"); }
+      }
+    </script>
+  </body>
+</html>
