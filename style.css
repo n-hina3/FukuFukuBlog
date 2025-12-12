@@ -653,15 +653,18 @@ img {
   color: #aaa;
 }
 
+/* 記事本文のスタイル改善 */
 .single-post-content {
-  font-size: 1rem;
-  line-height: 2;
-  margin-bottom: 60px;
-  color: var(--text);
+  font-size: 16px;       /* 少し大きめに */
+  line-height: 1.8;      /* 行間を広げて読みやすく */
+  color: var(--main-color);
+  max-width: 800px;      /* 一行が長すぎると目が疲れるので幅制限 */
+  margin: 0 auto;
+  padding: 0 20px;
 }
-
+/* 段落ごとに余白を開ける */
 .single-post-content p {
-  margin-bottom: 2em;
+  margin-bottom: 1.5em; 
 }
 
 .single-post-footer {
@@ -2359,4 +2362,87 @@ body.theme-design h2 {
 }
 .staff-link:hover {
   border-color: var(--text-light);
+}
+
+/* === 基本変数 (デフォルト) === */
+:root {
+  --main-color: #333;
+  --bg-color: #f9f9f9;
+  --accent-color: #555;
+  --font-body: "Helvetica Neue", Arial, sans-serif;
+  --header-bg: #fff;
+}
+
+/* =========================================
+   Aoi (主人公): 青春、透明感、映画
+   ========================================= */
+body.theme-aoi {
+  --main-color: #2c3e50;
+  --bg-color: #f4f7f6; /* 青みがかった白 */
+  --accent-color: #3498db; /* 青春ブルー */
+  --font-body: "Yu Mincho", "Hiragino Mincho ProN", serif; /* 小説っぽく明朝体 */
+  --header-bg: rgba(255, 255, 255, 0.9);
+}
+/* Aoiだけの特別演出: フィルムグレイン（ザラつき） */
+body.theme-aoi::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("https://www.transparenttextures.com/patterns/noise-lines.png"); /* ノイズ素材 */
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* =========================================
+   Hiyori (裏・歴史): 温かみ、秘密、古い紙
+   ========================================= */
+body.theme-hiyori {
+  --main-color: #5d4037;
+  --bg-color: #fdf5e6; /* 生成り色（オールドペーパー風） */
+  --accent-color: #a1887f; /* 枯れた色 */
+  --font-body: "Hiragino Mincho ProN", "Yu Mincho", serif;
+}
+body.theme-hiyori .site-header {
+  border-bottom: 4px double #8d6e63; /* 古書のような装飾 */
+}
+
+/* =========================================
+   Miyapy (おじさん): レトロ、昭和、ビビッド
+   ========================================= */
+body.theme-miyapy {
+  --main-color: #000;
+  --bg-color: #fffde7; /* 黄色みがかったレトロ感 */
+  --accent-color: #ff6f00; /* インパクトのあるオレンジ */
+  --font-body: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; /* 太めのゴシック */
+}
+body.theme-miyapy h1, body.theme-miyapy h2 {
+  font-weight: 900;
+  letter-spacing: -0.05em; /* 昭和の雑誌見出し風 */
+}
+
+/* =========================================
+   OL (キラキラ): インスタ風、パステル
+   ========================================= */
+body.theme-ol {
+  --main-color: #555;
+  --bg-color: #fff0f5; /* 薄いピンク */
+  --accent-color: #ff69b4; /* ピンク */
+  --font-body: "M PLUS Rounded 1c", sans-serif; /* 丸ゴシック（要Google Fonts） */
+}
+
+/* =========================================
+   K (デザイナー): ミニマル、ダークモード、洗練
+   ========================================= */
+body.theme-design {
+  --main-color: #e0e0e0;
+  --bg-color: #121212; /* 黒背景 */
+  --accent-color: #00bcd4; /* シアン */
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/* ダークモード対応 */
+body.theme-design .post-card {
+  background: #1e1e1e;
+  color: #fff;
+  border: 1px solid #333;
 }
