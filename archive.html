@@ -7,23 +7,6 @@
   <link rel="icon" href="dinosaurs2.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="archive.css">
-  <style>
-    .truth-text-container {
-      background: #fff;
-      color: #333;
-      padding: 40px;
-      margin: 20px auto;
-      max-width: 600px;
-      font-family: "Yu Mincho", serif;
-      line-height: 1.8;
-      border-radius: 4px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-    .truth-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; text-align: center; }
-    .truth-date { display: block; text-align: right; color: #666; font-size: 0.9rem; margin-bottom: 30px; }
-    .truth-body p { margin-bottom: 1.5em; }
-    .truth-sign { text-align: right; margin-top: 40px; font-weight: bold; }
-  </style>
 </head>
 <body>
   <div class="app-container">
@@ -64,9 +47,20 @@
             <div class="msg system">
               <div class="bubble">System: ログの復元が完了しました。検索ワードを入力してください。</div>
             </div>
+            <div class="msg hiyori">
+              <div class="avatar">H</div>
+              <div class="bubble">葵、お疲れ様。ZINEの入稿終わったよ。</div>
             </div>
+            <div class="msg aoi">
+              <div class="avatar">A</div>
+              <div class="bubble">ありがとう。……ねえ日和、私やっぱり……</div>
+            </div>
+            <div class="msg system">
+              <div class="bubble">Error: これ以降のログは破損しています。キーワード検索で断片を復元してください。</div>
+            </div>
+          </div>
           <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="キーワードを入力 (例: △, ○, □...)">
+            <input type="text" id="chat-input" placeholder="キーワードを入力 (例: パスワード, △, 葵...)">
             <button id="chat-submit"><i class="fa-solid fa-paper-plane"></i></button>
           </div>
         </div>
@@ -79,8 +73,27 @@
         <div class="gallery-grid">
           <div class="gallery-item"><div class="dummy-img" style="background-color: #555;">Day1_01.jpg</div></div>
           <div class="gallery-item"><div class="dummy-img" style="background-color: #666;">Day1_02.jpg</div></div>
-          <div class="gallery-item locked">
-            <div class="lock-overlay"><i class="fa-solid fa-lock"></i><p>Corrupted</p></div>
+          <div class="gallery-item"><div class="dummy-img" style="background-color: #777;">Lunch.jpg</div></div>
+          <div class="gallery-item locked" id="photo-lock-item">
+            <div class="lock-overlay">
+              <i class="fa-solid fa-lock"></i>
+              <p>Protected</p>
+            </div>
+            <img src="" alt="Hidden" class="hidden-content">
+          </div>
+        </div>
+        
+        <div class="modal-lock" id="modal-photo">
+          <div class="modal-box">
+            <h3>Enter Password</h3>
+            <p class="hint">ヒント: 初日に食べた、福井名物の「あの丼」の名前 (ローマ字)</p>
+            <input type="text" id="pass-photo" placeholder="Password">
+            <button id="btn-photo">Unlock</button>
+            <div class="unlocked-content hidden" id="content-photo">
+              <div class="glitch-img-container">
+                <div class="noise-text">KEY: △ = 3</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -92,7 +105,26 @@
         <ul class="file-list">
           <li><i class="fa-solid fa-video"></i> test_shot_01.mp4 <span class="size">12MB</span></li>
           <li><i class="fa-solid fa-video"></i> ng_take_03.mp4 <span class="size">45MB</span></li>
+          <li class="locked-file" id="movie-lock-item">
+            <i class="fa-solid fa-lock"></i> [Protected] last_scene.mp4
+          </li>
         </ul>
+
+        <div class="modal-lock" id="modal-movie">
+          <div class="modal-box">
+            <h3>Enter Password</h3>
+            <p class="hint">ヒント: 私たちの「記念日」 (映画祭開催日 4桁)</p>
+            <input type="text" id="pass-movie" placeholder="Password">
+            <button id="btn-movie">Unlock</button>
+            <div class="unlocked-content hidden" id="content-movie">
+              <div class="video-placeholder">
+                <i class="fa-solid fa-play"></i>
+                <p>Playing...</p>
+                <div class="hidden-clue">Last Frame: ○ = 0</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="view-trash" class="view-section">
@@ -100,7 +132,7 @@
           <h2><i class="fa-regular fa-trash-can"></i> Trash</h2>
         </div>
         
-        <div class="trash-container" id="trash-container">
+        <div class="trash-container">
           <div class="trash-file" id="final-lock-item">
             <i class="fa-regular fa-file-lines"></i>
             <span>停止ボタンを押したあとで.txt</span>
@@ -110,40 +142,12 @@
 
         <div class="modal-lock" id="modal-trash">
           <div class="modal-box final-box">
-            <div id="modal-content-form">
-              <h3>FINAL SECURITY</h3>
-              <p class="hint">心の形（△○□）を数字に変換して入力</p>
-              <div class="code-input-group">
-                <input type="text" id="pass-final" placeholder="3桁の数字" maxlength="3">
-              </div>
-              <button id="btn-final">RECOVER DATA</button>
-              <p id="error-final" style="color:#cf6679; font-size:0.8rem; margin-top:10px;"></p>
+            <h3>FINAL SECURITY</h3>
+            <p class="hint">心の形（△○□）を入力してください</p>
+            <div class="code-input-group">
+              <input type="text" id="pass-final" placeholder="3桁の数字" maxlength="3">
             </div>
-            
-            <div id="modal-content-truth" class="unlocked-content hidden">
-              <div class="truth-text-container">
-                <div class="truth-title">停止ボタンを押したあとで</div>
-                <span class="truth-date">2024.11.30</span>
-                <div class="truth-body">
-                  <p>このページを見つけてくれて、ありがとう。</p>
-                  <p>ZINEの片隅にあった小さな「□」の意味に気づいてくれたあなたにだけ、ZINEには書ききれなかった「もうひとつの話」をしようと思います。</p>
-                  <p>表のブログやZINEには、「映画祭は最高！」「3日間で映画が作れる！」という楽しい部分を中心に書きました。それは決して嘘ではありません。</p>
-                  <p>でも、ZINEという限られた紙面には、どうしても載せられなかったことがあります。それは、キラキラした結果に至るまでの、汗と迷いと、ちょっとカッコ悪い私の「本音」です。</p>
-                  <p>正直に言うと、私はずっと「自分には何もない」「福井には何もない」と思っていました。高校も大学も第一志望じゃなかったし、なんとなく自信が持てないまま、この街で学生生活を送っていました。</p>
-                  <p>だから、日和に誘われてムービーハッカソンに参加した時も、最初は「プロの現場なんて、私ごときが参加していいのかな」と、怖気づく気持ちの方が強かったんです。実際の現場は、想像以上に凄まじい熱量でした。</p>
-                  <p>プロの監督やカメラマンさんは、私たち学生を「子供」扱いせず、対等な「クリエイター」として扱ってくれました。だからこそ、怖かったんです。その期待に応えられない自分が。マイクを持つ腕はパンパンになるし、自分の判断ひとつで撮影を止めてしまうかもしれないというプレッシャー。「3日間」という時間は、プロの技術とスピード感を目の当たりにするにはあまりに短く、でも一生分くらい濃い時間でした。</p>
-                  <p>1日目の夜、正直「逃げたい」とも思いました。環境が嫌だったんじゃなくて、自分の不甲斐なさに押しつぶされそうだったから。それでも続けられたのは、間違いなく「人」のおかげです。真剣な眼差しで指導してくれるプロの方々、そして撮影に協力してくれた商店街や地域の人たちの温かさ。みんなで一つの画面を覗き込み、「今のカットいいね！」と笑い合った瞬間。その時初めて、私は「福井には何もない」なんて間違いだったと気づきました。ここには、こんなにも熱い人たちがいる。</p>
-                  <p>映画祭当日、テアトルサンクの大きなスクリーンで上映された時、暗闇の中で、私たちが必死に繋いだ映像が光っていました。そしてエンドロール。「録音助手：柴田 葵」。その文字を見た時、涙が止まらなくなりました。自分がこの街に生きて、プロの人たちと一緒に何かを作り上げたという確かな証拠が、そこにあったからです。</p>
-                  <p>△（再生）し続けた3日間の熱狂。<br>○（録画）した、ゼロから作り上げた景色。</p>
-                  <p>そして今、私は一度立ち止まって、□（停止）ボタンを押します。私は来年、福井を出て海外へ行きます。かつては「ここではないどこか」へ逃げたかったけれど、今は違います。ここで得た自信と経験をお守りにして、もっと広い世界を見ていきたいからです。</p>
-                  <p>もし、この文章を読んでいるあなたが、かつての私のように「何もない」と感じているなら。ぜひ、次の映画祭やムービーハッカソンに参加してみてください。きっとそこには、ZINEの写真よりもっと鮮やかで、あなたの人生を変えるような3日間が待っているはずです。</p>
-                  <p>これが私の、本当の「撮影体験記」です。</p>
-                  <p>読んでくれてありがとう。</p>
-                  <div class="truth-sign">柴田 葵</div>
-                </div>
-                <button onclick="document.getElementById('modal-trash').classList.remove('open')" style="margin-top:20px; width:100%; padding:10px;">閉じる</button>
-              </div>
-            </div>
+            <button id="btn-final">RECOVER DATA</button>
           </div>
         </div>
       </section>
