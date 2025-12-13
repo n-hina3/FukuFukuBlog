@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FukuFukuBlog | 福井の日常を、もっと楽しく。</title>
+    <link rel="icon" href="dinosaurs2.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="home-body">
+    <!-- ヘッダー（最新のデザイン・機能を維持） -->
+    <header class="site-header">
+      <div class="header-inner">
+        <h1 class="logo">
+          <a href="index.html"> <span class="logo-mark">F</span>FukuFukuBlog </a>
+        </h1>
+
+        <!-- ハンバーガーメニュー -->
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="メニュー">
+          <span></span><span></span><span></span>
+        </button>
+
+        <!-- メニューコンテナ -->
+        <div class="header-actions">
+          <div class="search-wrapper">
+            <input type="text" id="arg-search" placeholder="Search..." autocomplete="off" />
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+
+          <nav class="site-nav" id="site-nav">
+            <a href="index.html" class="active">HOME</a>
+            <a href="blog.html">BLOG</a>
+            <a href="about.html">ABOUT</a>
+            <a href="contact.html">CONTACT</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- 1. トップページ用ヒーローセクション（スライドショー） -->
+    <div class="hero-section hero-home">
+      <!-- スライドショー背景 -->
+      <div class="hero-slideshow">
+        <!-- 画像1: 駅前（晴れ） -->
+        <div class="slide-item" style="background-image: url('img/fukui_station_sunny.jpg')"></div>
+        <!-- 画像2: 恐竜 -->
+        <div class="slide-item" style="background-image: url('img/fukui_dinosaur.jpg')"></div>
+        <!-- 画像3: グルメ -->
+        <div class="slide-item" style="background-image: url('img/fukui_food.jpg')"></div>
+      </div>
+
+      <div class="hero-overlay"></div>
+      <div class="hero-text">
+        <h2>DISCOVER<br />LOCAL LIFE.</h2>
+        <p>福井の日常を、もっと楽しく。</p>
+      </div>
+    </div>
+
+    <div class="container home-container">
+      <!-- 2. What's New（更新情報） -->
+      <section class="section-block news-section">
+        <h3 class="section-label">WHAT'S NEW</h3>
+        <ul class="news-list">
+          <li>
+            <time>2025.10.01</time>
+            <span class="news-cat notice">Notice</span>
+            <span class="news-title">サイトをリニューアルオープンしました。</span>
+          </li>
+          <li>
+            <time>2025.09.20</time>
+            <span class="news-cat event">Event</span>
+            <span class="news-title">「福井駅前短編映画祭」のボランティア募集について</span>
+          </li>
+          <li>
+            <time>2025.08.15</time>
+            <span class="news-cat info">Info</span>
+            <span class="news-title">夏季休業のお知らせ</span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 3. Pick Up（おすすめ記事） -->
+      <section id="pickup" class="section-block">
+        <div class="section-header-center">
+          <h3 class="section-label">PICK UP</h3>
+          <p class="section-desc">編集部が厳選した、今週末に行きたいスポット。</p>
+        </div>
+
+        <div class="grid-layout">
+          <!-- カフェ記事 -->
+          <article class="post-card">
+            <a href="blog.html?user=ol_lunch" class="card-link">
+              <div class="card-thumb">
+                <div class="thumb-placeholder" style="background: #ed8936">
+                  <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <span class="category-label">CAFE</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">駅裏に見つけた隠れ家カフェで、ほっと一息。</h2>
+                <p class="card-excerpt">仕事帰りにふらっと立ち寄れる、素敵な空間を見つけました。</p>
+              </div>
+            </a>
+          </article>
+
+          <!-- イベント記事 -->
+          <article class="post-card">
+            <a href="blog.html?user=miyapy" class="card-link">
+              <div class="card-thumb">
+                <div class="thumb-placeholder" style="background: #4a5568">
+                  <i class="fa-solid fa-camera"></i>
+                </div>
+                <span class="category-label">EVENT</span>
+              </div>
+              <div class="card-content">
+                <h2 class="card-title">今年も映画祭の季節がやってくる！</h2>
+                <p class="card-excerpt">福井の秋といえばこれ。準備の裏側を少しだけ公開します。</p>
+              </div>
+            </a>
+          </article>
+
+          <!-- 謎のバナー（ARG入り口：404偽装） -->
+          <article class="post-card broken-banner-card">
+            <div class="broken-banner" id="broken-link-trigger">
+              <div class="broken-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <div class="broken-text">
+                <span class="small">ADVERTISEMENT</span>
+                <span class="main">Coming Soon...</span>
+              </div>
+            </div>
+            <div class="card-content-dummy">
+              <span class="dummy-line"></span>
+              <span class="dummy-line short"></span>
+            </div>
+          </article>
+        </div>
+
+        <div class="more-link-area">
+          <a href="blog.html" class="lead-more-btn">READ BLOG</a>
+        </div>
+      </section>
+
+      <!-- 4. Writer Introduction（ライター紹介） -->
+      <section id="writers" class="section-block">
+        <div class="section-header-center">
+          <h3 class="section-label">WRITERS</h3>
+          <p class="section-desc">個性豊かなメンバーが発信中。</p>
+        </div>
+
+        <div class="writer-grid">
+          <div class="writer-item">
+            <div class="writer-icon" style="background-color: #3d5588">A</div>
+            <div class="writer-info">
+              <h4>AOI</h4>
+              <p>Diary / Cinema</p>
+            </div>
+          </div>
+          <div class="writer-item">
+            <div class="writer-icon" style="background-color: #6e2c4d">H</div>
+            <div class="writer-info">
+              <h4>HIYORI</h4>
+              <p>History / Research</p>
+            </div>
+          </div>
+          <div class="writer-item">
+            <div class="writer-icon" style="background-color: #555">M</div>
+            <div class="writer-info">
+              <h4>MIYAPY</h4>
+              <p>Editor / Event</p>
+            </div>
+          </div>
+          <!-- 隠しライター（薄く表示：ARGヒント） -->
+          <div class="writer-item hidden-writer">
+            <div class="writer-icon glitch-hover">?</div>
+            <div class="writer-info">
+              <h4 class="code-font">△○□</h4>
+              <p>Unknown</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- フッター（ARG入り口：Staff Login付き） -->
+    <footer class="site-footer">
+      <div class="footer-nav">
+        <a href="index.html">HOME</a>
+        <a href="blog.html">BLOG</a>
+        <a href="about.html">ABOUT</a>
+        <a href="contact.html">CONTACT</a>
+      </div>
+      <p class="copyright">&copy; 2025 FukuFukuBlog.</p>
+
+      <!-- 関係者ログイン（カモフラージュ） -->
+      <div class="staff-gate-wrapper">
+        <a href="login.html" class="staff-gate"> <i class="fa-solid fa-lock"></i> Staff Login </a>
+      </div>
+    </footer>
+
+    <!-- 偽装404オーバーレイ -->
+    <div id="fake-404-overlay" class="hidden">
+      <div class="error-container">
+        <h1 class="error-code">404</h1>
+        <p class="error-msg">Page Not Found</p>
+        <p class="error-desc">
+          お探しのページは見つかりませんでした。<br />
+          The requested URL was not found on this server.
+        </p>
+        <div class="error-details">
+          <span>Error Code: 0x000000</span>
+          <!-- ここに入力欄を隠す -->
+          <input type="text" id="hidden-key-input" class="hidden-input" autocomplete="off" />
+          <span class="blinking-cursor">_</span>
+        </div>
+        <button id="close-404-btn">Return to Home</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

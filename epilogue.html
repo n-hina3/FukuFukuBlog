@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Epilogue | The End of the Story</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Shippori+Mincho:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        color: #fff;
+        font-family: "Shippori Mincho", serif;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .container {
+        max-width: 800px;
+        padding: 40px;
+        opacity: 0;
+        animation: fadeIn 3s ease forwards;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        color: #4db6ac; /* Accent color */
+      }
+
+      p {
+        font-size: 1.2rem;
+        line-height: 2.5;
+        margin-bottom: 20px;
+      }
+
+      .highlight {
+        color: #4db6ac;
+        font-weight: bold;
+      }
+
+      .btn-area {
+        margin-top: 60px;
+        opacity: 0;
+        animation: fadeIn 2s ease 4s forwards; /* 遅れて表示 */
+      }
+
+      .btn {
+        display: inline-block;
+        border: 2px solid #4db6ac;
+        background: transparent;
+        padding: 15px 50px;
+        color: #4db6ac;
+        text-decoration: none;
+        font-family: "Jost", sans-serif;
+        letter-spacing: 0.1em;
+        font-weight: bold;
+        transition: all 0.5s;
+        border-radius: 50px;
+      }
+
+      .btn:hover {
+        background: #4db6ac;
+        color: #000;
+        box-shadow: 0 0 30px rgba(77, 182, 172, 0.6);
+      }
+
+      .small-text {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 30px;
+        font-family: "Jost", sans-serif;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>NEXT CREATOR</h1>
+
+      <p>すべての記録は、あなたに託された。</p>
+      <p>
+        モニター越しに感じたその熱狂は、<br />
+        次は<span class="highlight">「現場」</span>で待っている。
+      </p>
+      <p>
+        物語の続きを描くのは、<br />
+        他の誰でもない、あなただ。
+      </p>
+
+      <div class="btn-area">
+        <!-- 映画祭サイトではなく、エンディング（制作後記）ページへ遷移 -->
+        <a href="ending.html" class="btn">BEHIND THE SCENES</a>
+        <p class="small-text">See you at Fukui Station.</p>
+      </div>
+    </div>
+  </body>
+</html>

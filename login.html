@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Login | FukuFukuBlog</title>
+    <link rel="icon" href="dinosaurs2.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      body.login-body {
+        background-color: #1a1a1a;
+        color: #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: "Jost", monospace;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .login-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 30px 30px;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .login-wrapper {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 400px;
+        padding: 40px;
+        background: rgba(30, 30, 30, 0.9);
+        border: 1px solid #444;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .login-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        letter-spacing: 0.1em;
+        color: #fff;
+      }
+
+      .login-subtitle {
+        font-size: 0.8rem;
+        color: #888;
+        margin-bottom: 40px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .login-input {
+        width: 100%;
+        padding: 15px;
+        background: #000;
+        border: 1px solid #333;
+        color: #00ff41;
+        font-family: monospace;
+        font-size: 1.2rem;
+        text-align: center;
+        border-radius: 4px;
+        outline: none;
+        transition: all 0.3s;
+        margin-bottom: 25px;
+      }
+
+      .login-input:focus {
+        border-color: #00ff41;
+        box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+      }
+
+      .login-btn {
+        width: 100%;
+        padding: 15px;
+        background: #333;
+        color: #fff;
+        border: none;
+        font-weight: 700;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .login-btn:hover {
+        background: #00ff41;
+        color: #000;
+      }
+
+      .status-msg {
+        margin-top: 20px;
+        min-height: 24px;
+        font-size: 0.85rem;
+        font-family: monospace;
+      }
+      .status-error {
+        color: #ff5f56;
+      }
+      .status-success {
+        color: #00ff41;
+      }
+
+      .hint-area {
+        margin-top: 40px;
+        font-size: 0.7rem;
+        color: #444;
+        line-height: 1.6;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        font-size: 0.8rem;
+        color: #666;
+        text-decoration: none;
+      }
+      .back-link:hover {
+        color: #fff;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20%,
+        60% {
+          transform: translateX(-5px);
+        }
+        40%,
+        80% {
+          transform: translateX(5px);
+        }
+      }
+      .shake {
+        animation: shake 0.4s;
+      }
+    </style>
+  </head>
+  <body class="login-body">
+    <div class="login-bg"></div>
+
+    <div class="login-wrapper">
+      <div class="login-logo">FukuFukuBlog</div>
+      <p class="login-subtitle">System Administration</p>
+
+      <input
+        type="password"
+        id="pass-input"
+        class="login-input"
+        placeholder="ACCESS CODE"
+        autocomplete="off"
+      />
+      <button id="login-btn" class="login-btn">CONNECT</button>
+
+      <div id="status-msg" class="status-msg"></div>
+
+      <div class="hint-area">
+        System ID: FKB-2025-SECURE<br />
+        <span style="opacity: 0.5"
+          >Hint: サイト内の「違和感」を探せ。<br />誰かがコードを隠し持っている。</span
+        >
+      </div>
+
+      <a href="index.html" class="back-link"
+        ><i class="fa-solid fa-arrow-left"></i> Return to Site</a
+      >
+    </div>
+
+    <script>
+      const input = document.getElementById("pass-input");
+      const btn = document.getElementById("login-btn");
+      const msg = document.getElementById("status-msg");
+
+      const handleLogin = () => {
+        const val = input.value.trim();
+        if (!val) return;
+
+        msg.className = "status-msg";
+        msg.innerText = "Verifying...";
+        input.disabled = true;
+        btn.disabled = true;
+
+        setTimeout(() => {
+          if (val === "309") {
+            // パスワード変更
+            msg.className = "status-msg status-success";
+            msg.innerHTML = '<i class="fa-solid fa-unlock"></i> ACCESS GRANTED';
+            input.style.borderColor = "#00ff41";
+            setTimeout(() => {
+              window.location.href = "archive.html";
+            }, 1000);
+          } else {
+            msg.className = "status-msg status-error";
+            msg.innerText = "ACCESS DENIED";
+            document.querySelector(".login-wrapper").classList.add("shake");
+            setTimeout(
+              () => document.querySelector(".login-wrapper").classList.remove("shake"),
+              500
+            );
+
+            input.disabled = false;
+            btn.disabled = false;
+            input.value = "";
+            input.focus();
+          }
+        }, 800);
+      };
+
+      btn.addEventListener("click", handleLogin);
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") handleLogin();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | FukuFukuBlog</title>
+    <link rel="icon" href="dinosaurs2.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="static-body">
+    <header class="site-header">
+      <div class="header-inner">
+        <h1 class="logo">
+          <a href="index.html"> <span class="logo-mark">F</span>FukuFukuBlog </a>
+        </h1>
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="メニュー">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="header-actions">
+          <div class="search-wrapper">
+            <input type="text" id="arg-search" placeholder="Search..." autocomplete="off" />
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <nav class="site-nav" id="site-nav">
+            <a href="index.html">HOME</a>
+            <a href="blog.html">BLOG</a>
+            <a href="about.html" class="active">ABOUT</a>
+            <a href="contact.html">CONTACT</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-header">
+      <h2 class="page-title">ABOUT</h2>
+      <p class="page-subtitle">このサイトについて</p>
+    </div>
+
+    <div class="container">
+      <div class="about-section">
+        <h3>FukuFukuBlogとは？</h3>
+        <p>
+          FukuFukuBlogは、福井県の「今」を切り取り、アーカイブしていくためのローカルメディアです。<br />
+          美味しいグルメ、隠れた名所、そしてこの街で暮らす人々の日常。<br />
+          何気ない景色の中にこそ、物語は隠れています。
+        </p>
+        <p>
+          （※
+          現在、サイトのリニューアルに伴い一部の過去記事が表示されない不具合が発生しております。）
+        </p>
+      </div>
+
+      <div class="about-section">
+        <h3>WRITERS</h3>
+        <p>個性豊かなライター陣が、それぞれの視点で福井を切り取ります。</p>
+
+        <div class="writer-intro">
+          <div class="writer-box">
+            <div class="writer-icon" style="background-color: #3d5588">A</div>
+            <h4>AOI</h4>
+            <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 5px">
+              Diary / Cinema
+            </p>
+            <p style="font-size: 0.8rem; margin-top: 15px; line-height: 1.6">
+              映像制作を学ぶ大学生。<br />感情豊かでポエミーな文章が特徴。
+            </p>
+          </div>
+          <div class="writer-box">
+            <div class="writer-icon" style="background-color: #6e2c4d">H</div>
+            <h4>HIYORI</h4>
+            <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 5px">
+              History / Research
+            </p>
+            <p style="font-size: 0.8rem; margin-top: 15px; line-height: 1.6">
+              歴史マニア。<br />丹羽長秀公を推している。
+            </p>
+          </div>
+          <div class="writer-box">
+            <div class="writer-icon" style="background-color: #555">M</div>
+            <h4>MIYAPY</h4>
+            <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 5px">Editor</p>
+            <p style="font-size: 0.8rem; margin-top: 15px; line-height: 1.6">
+              元タウン誌編集長。<br />映画祭の実行委員も務める。
+            </p>
+          </div>
+
+          <!-- 隠しライター (ARG) -->
+          <div class="writer-box" id="about-hidden-writer">
+            <div class="writer-icon" style="background-color: #000; color: #333">?</div>
+            <h4>△○□</h4>
+            <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 5px">Unknown</p>
+            <p style="font-size: 0.8rem; margin-top: 15px; line-height: 1.6">
+              No Profile Data.<br />Corruption detected.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-section">
+        <h3>運営者情報</h3>
+        <dl style="display: grid; grid-template-columns: 100px 1fr; gap: 15px; font-size: 0.95rem">
+          <dt style="font-weight: bold">サイト名</dt>
+          <dd>FukuFukuBlog</dd>
+          <dt style="font-weight: bold">運営</dt>
+          <dd>FukuFukuBlog 運営事務局</dd>
+          <dt style="font-weight: bold">情報提供</dt>
+          <dd>
+            街で見かけた面白いネタを募集しています。<br />
+            また、サイト上で<strong>「意図しない映像の乱れ」や「不可解な文字列」</strong>を発見された方は、直ちにご連絡ください。
+          </dd>
+        </dl>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-nav">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="privacy.html">PRIVACY POLICY</a>
+      </div>
+      <p class="copyright">&copy; 2025 FukuFukuBlog.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

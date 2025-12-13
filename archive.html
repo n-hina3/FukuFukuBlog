@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Archive | △○□</title>
+    <link rel="icon" href="dinosaurs2.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* =========================================
+       Archive Page Styles (Dark UI)
+       ========================================= */
+      :root {
+        --bg-dark: #121212;
+        --bg-panel: #1e1e1e;
+        --bg-hover: #2c2c2c;
+        --text-main: #e0e0e0;
+        --text-muted: #888888;
+        --accent: #4db6ac;
+        --border: #333333;
+        --danger: #ef5350;
+
+        /* Writers Colors */
+        --color-aoi: #3d5588;
+        --color-hiyori: #6e2c4d;
+        --color-miyapy: #555555;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+        font-family: "Noto Sans JP", sans-serif;
+        height: 100vh;
+        display: flex;
+        overflow: hidden;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 260px;
+        background-color: var(--bg-panel);
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        flex-shrink: 0;
+      }
+
+      .team-logo {
+        font-family: "Jost", sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 5px;
+        letter-spacing: 0.1em;
+      }
+
+      .team-sub {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-bottom: 30px;
+      }
+
+      .nav-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex-grow: 1;
+      }
+
+      .nav-item {
+        background: none;
+        border: none;
+        text-align: left;
+        padding: 12px 15px;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: "Jost", "Noto Sans JP", sans-serif;
+      }
+
+      .nav-item:hover {
+        background-color: var(--bg-hover);
+        color: var(--text-main);
+      }
+
+      .nav-item.active {
+        background-color: rgba(77, 182, 172, 0.15);
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .nav-divider {
+        height: 1px;
+        background-color: var(--border);
+        margin: 10px 0;
+      }
+
+      .sidebar-footer {
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+        min-height: 60px; /* スペース確保 */
+      }
+
+      .logout-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: var(--bg-dark);
+        background-color: var(--accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: bold;
+        padding: 12px;
+        border-radius: 4px;
+        transition: all 0.3s;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+      }
+
+      .logout-btn.visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+        animation: pulse-green 2s infinite;
+      }
+
+      @keyframes pulse-green {
+        0% {
+          box-shadow: 0 0 0 0 rgba(77, 182, 172, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(77, 182, 172, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(77, 182, 172, 0);
+        }
+      }
+
+      /* Main Content */
+      .main-content {
+        flex-grow: 1;
+        padding: 40px;
+        overflow-y: auto;
+        background-color: var(--bg-dark);
+      }
+
+      .view-section {
+        display: none;
+        animation: fadeIn 0.4s ease;
+      }
+      .view-section.active {
+        display: block;
+      }
+
+      .view-header {
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .view-header h2 {
+        font-family: "Jost", sans-serif;
+        font-size: 1.8rem;
+        margin: 0 0 5px 0;
+        color: var(--text-main);
+      }
+
+      .view-header p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin: 0;
+      }
+
+      /* Chat View */
+      .chat-window {
+        background-color: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-history {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .msg {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        max-width: 85%;
+      }
+
+      .msg.system {
+        align-self: center;
+        max-width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin: 10px 0;
+      }
+
+      .msg.left {
+        align-self: flex-start;
+      }
+      .msg.right {
+        align-self: flex-end;
+        flex-direction: row-reverse;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #444;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+        color: #fff;
+        font-family: "Jost", sans-serif;
+      }
+
+      .avatar.aoi {
+        background-color: var(--color-aoi);
+      }
+      .avatar.hiyori {
+        background-color: var(--color-hiyori);
+      }
+      .avatar.miyapy {
+        background-color: var(--color-miyapy);
+      }
+
+      .message-content {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .sender-name {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-left: 5px;
+      }
+      .msg.right .sender-name {
+        text-align: right;
+        margin-right: 5px;
+      }
+
+      .bubble {
+        background-color: #333;
+        padding: 12px 16px;
+        border-radius: 12px;
+        border-top-left-radius: 2px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+      .msg.right .bubble {
+        background-color: #444;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 2px;
+      }
+
+      /* Photo/Movie Grid */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+      }
+
+      .gallery-item {
+        aspect-ratio: 16/10;
+        background-color: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .gallery-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .media-content {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: flex-end;
+      }
+
+      .media-label {
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        width: 100%;
+        padding: 10px;
+        font-size: 0.85rem;
+        backdrop-filter: blur(2px);
+      }
+
+      .gallery-item.locked .lock-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-muted);
+        border: 1px dashed var(--border);
+      }
+      .gallery-item.locked i {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: var(--danger);
+      }
+
+      /* Modal */
+      .modal-lock {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+      }
+      .modal-lock.open {
+        display: flex;
+      }
+
+      .modal-box {
+        background: var(--bg-panel);
+        padding: 40px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        position: relative;
+      }
+      .modal-box h3 {
+        margin-top: 0;
+        color: var(--text-main);
+        font-family: "Jost", sans-serif;
+        letter-spacing: 0.1em;
+      }
+      .modal-box p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+        line-height: 1.6;
+      }
+
+      .modal-box input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        background: var(--bg-dark);
+        border: 1px solid var(--border);
+        color: var(--text-main);
+        text-align: center;
+        font-size: 1.2rem;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+      .modal-box input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      .modal-box button {
+        background: var(--accent);
+        border: none;
+        padding: 12px 20px;
+        color: #121212;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        border-radius: 4px;
+        font-family: "Jost", sans-serif;
+        letter-spacing: 0.1em;
+      }
+      .modal-box button:hover {
+        background: #80cbc4;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+
+      .unlocked-msg {
+        margin-top: 15px;
+        color: var(--accent);
+        font-weight: bold;
+        animation: fadeIn 0.5s;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        body {
+          flex-direction: column;
+          overflow-y: auto;
+        }
+        .sidebar {
+          width: 100%;
+          flex-direction: row;
+          align-items: center;
+          padding: 10px 20px;
+          overflow-x: auto;
+          min-height: 60px;
+        }
+        .nav-menu {
+          flex-direction: row;
+          gap: 5px;
+        }
+        .nav-item {
+          padding: 8px 12px;
+          font-size: 0.9rem;
+        }
+        .nav-item span {
+          display: none;
+        }
+        .nav-divider {
+          display: none;
+        }
+        .sidebar-footer {
+          border-top: none;
+          padding-top: 0;
+          margin-left: auto;
+          min-height: auto;
+        }
+        .logout-btn {
+          padding: 8px 15px;
+          font-size: 0.8rem;
+        }
+        .main-content {
+          padding: 20px;
+        }
+        .chat-window {
+          height: 400px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container" style="display: contents">
+      <aside class="sidebar">
+        <div>
+          <div class="team-logo">△○□</div>
+          <div class="team-sub">Project Archive</div>
+        </div>
+        <nav class="nav-menu">
+          <button class="nav-item active" onclick="switchTab('view-chat')">
+            <i class="fa-regular fa-comments"></i> <span>Team Chat</span>
+          </button>
+          <button class="nav-item" onclick="switchTab('view-photo')">
+            <i class="fa-regular fa-images"></i> <span>Photo</span>
+          </button>
+          <button class="nav-item" onclick="switchTab('view-movie')">
+            <i class="fa-solid fa-film"></i> <span>Movie</span>
+          </button>
+        </nav>
+        <div class="sidebar-footer">
+          <a href="ending.html" id="logout-btn" class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
+          </a>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <!-- Chat Section -->
+        <section id="view-chat" class="view-section active">
+          <div class="view-header">
+            <h2>Team Chat Log</h2>
+            <p>制作期間中のグループチャット履歴</p>
+          </div>
+          <div class="chat-window">
+            <div class="chat-history" id="chat-history">
+              <!-- 過去ログ -->
+              <div class="msg system">
+                <div class="bubble">2025/08/20 - Group Created</div>
+              </div>
+
+              <div class="msg left">
+                <div class="avatar hiyori">H</div>
+                <div class="message-content">
+                  <span class="sender-name">HIYORI</span>
+                  <div class="bubble">いよいよ明日からハッカソンだね！準備どう？</div>
+                </div>
+              </div>
+
+              <div class="msg left">
+                <div class="avatar aoi">A</div>
+                <div class="message-content">
+                  <span class="sender-name">AOI</span>
+                  <div class="bubble">
+                    緊張して寝れないかも...。<br />カメラのバッテリーって予備あったっけ？
+                  </div>
+                </div>
+              </div>
+
+              <div class="msg right">
+                <div class="avatar miyapy">M</div>
+                <div class="message-content">
+                  <span class="sender-name">MIYAPY</span>
+                  <div class="bubble">
+                    大丈夫、3つ充電しておいた。それより葵、脚本の修正稿上がった？
+                  </div>
+                </div>
+              </div>
+
+              <div class="msg left">
+                <div class="avatar aoi">A</div>
+                <div class="message-content">
+                  <span class="sender-name">AOI</span>
+                  <div class="bubble">今送りました！ラストシーン、少し変えてみました。</div>
+                </div>
+              </div>
+
+              <div class="msg system">
+                <div class="bubble">2025/09/20 - Post-Event</div>
+              </div>
+
+              <div class="msg left">
+                <div class="avatar hiyori">H</div>
+                <div class="message-content">
+                  <span class="sender-name">HIYORI</span>
+                  <div class="bubble">
+                    みんなお疲れ様！データ整理完了。<br />アーカイブサーバーにアップロードしておいたよ。
+                  </div>
+                </div>
+              </div>
+
+              <div class="msg right">
+                <div class="avatar miyapy">M</div>
+                <div class="message-content">
+                  <span class="sender-name">MIYAPY</span>
+                  <div class="bubble">
+                    サンキュ。一応セキュリティかけておいてくれ。外部に見られるとまずい未公開カットもあるし。
+                  </div>
+                </div>
+              </div>
+
+              <div class="msg left">
+                <div class="avatar hiyori">H</div>
+                <div class="message-content">
+                  <span class="sender-name">HIYORI</span>
+                  <div class="bubble">
+                    了解です。<br />写真フォルダのパスワードは『<strong style="color: var(--accent)"
+                      >memories</strong
+                    >』<br />動画フォルダは『<strong style="color: var(--accent)">passion</strong
+                    >』<br />に設定しました。
+                  </div>
+                </div>
+              </div>
+
+              <div class="msg left">
+                <div class="avatar aoi">A</div>
+                <div class="message-content">
+                  <span class="sender-name">AOI</span>
+                  <div class="bubble">了解！<br />あの3日間の熱狂、絶対忘れない。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Photo Section -->
+        <section id="view-photo" class="view-section">
+          <div class="view-header">
+            <h2>Photo Gallery</h2>
+            <p>制作風景・オフショット</p>
+          </div>
+
+          <!-- Locked State -->
+          <div id="photo-locked" class="gallery-grid">
+            <div class="gallery-item locked" onclick="openModal('photo')">
+              <div class="lock-overlay">
+                <i class="fa-solid fa-lock"></i>
+                <span>Locked Content</span>
+                <span style="font-size: 0.8rem; margin-top: 5px">Password Required</span>
+              </div>
+              <div class="media-content" style="background-color: #333"></div>
+            </div>
+            <div class="gallery-item locked" onclick="openModal('photo')">
+              <div class="lock-overlay"><i class="fa-solid fa-lock"></i></div>
+              <div class="media-content" style="background-color: #333"></div>
+            </div>
+            <div class="gallery-item locked" onclick="openModal('photo')">
+              <div class="lock-overlay"><i class="fa-solid fa-lock"></i></div>
+              <div class="media-content" style="background-color: #333"></div>
+            </div>
+          </div>
+
+          <!-- Unlocked State (Hidden initially) -->
+          <div id="photo-unlocked" class="gallery-grid" style="display: none">
+            <div class="gallery-item">
+              <div
+                class="media-content"
+                style="
+                  background-image: url('https://placehold.co/600x400/333/666?text=Team+Meeting');
+                "
+              >
+                <div class="media-label">Day 1: 作戦会議</div>
+              </div>
+            </div>
+            <div class="gallery-item">
+              <div
+                class="media-content"
+                style="background-image: url('https://placehold.co/600x400/444/777?text=Shooting')"
+              >
+                <div class="media-label">Day 2: 炎天下の撮影</div>
+              </div>
+            </div>
+            <div class="gallery-item">
+              <div
+                class="media-content"
+                style="background-image: url('https://placehold.co/600x400/555/888?text=Editing')"
+              >
+                <div class="media-label">Day 3: 深夜の編集室</div>
+              </div>
+            </div>
+            <div class="gallery-item">
+              <div
+                class="media-content"
+                style="background-image: url('https://placehold.co/600x400/666/999?text=Smile')"
+              >
+                <div class="media-label">Final: クランクアップ</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Movie Section -->
+        <section id="view-movie" class="view-section">
+          <div class="view-header">
+            <h2>Movie Clips</h2>
+            <p>未公開映像・メイキング</p>
+          </div>
+
+          <!-- Locked State -->
+          <div id="movie-locked" class="gallery-grid">
+            <div class="gallery-item locked" onclick="openModal('movie')">
+              <div class="lock-overlay">
+                <i class="fa-solid fa-lock"></i>
+                <span>Locked Content</span>
+              </div>
+              <div class="media-content" style="background-color: #222"></div>
+            </div>
+            <div class="gallery-item locked" onclick="openModal('movie')">
+              <div class="lock-overlay"><i class="fa-solid fa-lock"></i></div>
+              <div class="media-content" style="background-color: #222"></div>
+            </div>
+          </div>
+
+          <!-- Unlocked State (Hidden initially) -->
+          <div id="movie-unlocked" class="gallery-grid" style="display: none">
+            <div class="gallery-item">
+              <div
+                class="media-content"
+                style="background-color: #000; align-items: center; justify-content: center"
+              >
+                <i class="fa-solid fa-circle-play" style="font-size: 3rem; color: #fff"></i>
+              </div>
+              <div class="media-label" style="position: absolute; bottom: 0">NG集.mp4</div>
+            </div>
+            <div class="gallery-item">
+              <div
+                class="media-content"
+                style="background-color: #000; align-items: center; justify-content: center"
+              >
+                <i class="fa-solid fa-circle-play" style="font-size: 3rem; color: #fff"></i>
+              </div>
+              <div class="media-label" style="position: absolute; bottom: 0">
+                完成試写会_記録.mp4
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- Modals -->
+      <!-- Photo Modal -->
+      <div class="modal-lock" id="modal-photo">
+        <div class="modal-box">
+          <button class="close-modal" onclick="closeModal('photo')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <h3>Protected Folder</h3>
+          <p>チャットログからパスワードを探してください。</p>
+          <input type="text" id="pass-photo" placeholder="Password" />
+          <button onclick="checkPass('photo')">UNLOCK</button>
+          <div id="msg-photo" class="unlocked-msg"></div>
+        </div>
+      </div>
+
+      <!-- Movie Modal -->
+      <div class="modal-lock" id="modal-movie">
+        <div class="modal-box">
+          <button class="close-modal" onclick="closeModal('movie')">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <h3>Protected Folder</h3>
+          <p>チャットログからパスワードを探してください。</p>
+          <input type="text" id="pass-movie" placeholder="Password" />
+          <button onclick="checkPass('movie')">UNLOCK</button>
+          <div id="msg-movie" class="unlocked-msg"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 状態管理
+      const state = {
+        photoUnlocked: false,
+        movieUnlocked: false,
+      };
+
+      // --- Tab Switching ---
+      function switchTab(tabId) {
+        document.querySelectorAll(".view-section").forEach((el) => el.classList.remove("active"));
+        document.getElementById(tabId).classList.add("active");
+
+        document.querySelectorAll(".nav-item").forEach((el) => el.classList.remove("active"));
+
+        const buttons = document.querySelectorAll(".nav-item");
+        if (tabId === "view-chat") buttons[0].classList.add("active");
+        if (tabId === "view-photo") buttons[1].classList.add("active");
+        if (tabId === "view-movie") buttons[2].classList.add("active");
+      }
+
+      // --- Modal Logic ---
+      function openModal(type) {
+        // 既に解除済みの場合は何もしない（あるいは直接表示）
+        if (state[type + "Unlocked"]) return;
+
+        document.getElementById("modal-" + type).classList.add("open");
+        document.getElementById("pass-" + type).value = "";
+        document.getElementById("msg-" + type).innerText = "";
+        document.getElementById("pass-" + type).focus();
+      }
+
+      function closeModal(type) {
+        document.getElementById("modal-" + type).classList.remove("open");
+      }
+
+      // --- Password Logic ---
+      function checkPass(type) {
+        const input = document.getElementById("pass-" + type);
+        const val = input.value.trim().toLowerCase();
+        const msgDiv = document.getElementById("msg-" + type);
+
+        let isCorrect = false;
+
+        // チャットログにあるキーワード
+        if (type === "photo" && val === "memories") isCorrect = true;
+        if (type === "movie" && val === "passion") isCorrect = true;
+
+        if (isCorrect) {
+          msgDiv.style.color = "#4db6ac";
+          msgDiv.innerText = "ACCESS GRANTED.";
+          state[type + "Unlocked"] = true;
+
+          setTimeout(() => {
+            closeModal(type);
+            revealContent(type);
+            checkAllClear();
+          }, 1000);
+        } else {
+          msgDiv.style.color = "#ef5350";
+          msgDiv.innerText = "Incorrect Password.";
+          input.classList.add("shake"); // shakeアニメーション（CSSで定義要だが今回は簡易）
+        }
+      }
+
+      function revealContent(type) {
+        document.getElementById(type + "-locked").style.display = "none";
+        document.getElementById(type + "-unlocked").style.display = "grid";
+        // アニメーション用
+        document.getElementById(type + "-unlocked").animate(
+          [
+            { opacity: 0, transform: "translateY(10px)" },
+            { opacity: 1, transform: "translateY(0)" },
+          ],
+          { duration: 500, fill: "forwards" }
+        );
+      }
+
+      // --- All Clear Check ---
+      function checkAllClear() {
+        if (state.photoUnlocked && state.movieUnlocked) {
+          const btn = document.getElementById("logout-btn");
+          // 少し遅らせて表示
+          setTimeout(() => {
+            btn.classList.add("visible");
+            // ユーザーに気づかせるためのアラート等はあえて出さず、ボタンの出現で気づかせる
+          }, 1500);
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog | FukuFukuBlog</title>
+    <link rel="icon" href="dinosaurs2.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Shippori+Mincho:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body id="blog-body">
+    <!-- ARG演出用オーバーレイ -->
+    <div class="texture-overlay"></div>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <h1 class="logo">
+          <a href="index.html"> <span class="logo-mark">F</span>FukuFukuBlog </a>
+        </h1>
+
+        <!-- ハンバーガーメニュー (style.cssで制御) -->
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="メニュー">
+          <span></span><span></span><span></span>
+        </button>
+
+        <!-- メニューコンテナ -->
+        <div class="header-actions">
+          <!-- 検索バー -->
+          <div class="search-wrapper">
+            <input type="text" id="arg-search" placeholder="Search..." autocomplete="off" />
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+
+          <!-- ナビゲーション -->
+          <nav class="site-nav" id="site-nav">
+            <a href="index.html">HOME</a>
+            <a href="blog.html" class="active">BLOG</a>
+            <a href="about.html">ABOUT</a>
+            <a href="contact.html">CONTACT</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- プロフィールヘッダー -->
+    <div class="page-header">
+      <h2 class="page-title">BLOG</h2>
+      <p class="page-subtitle">福井の日常アーカイブ</p>
+    </div>
+
+    <!-- ユーザープロフィール (JSで動的に挿入) -->
+    <div class="blog-profile-header">
+      <div class="profile-inner">
+        <div class="profile-avatar" id="profile-img"></div>
+        <div class="profile-text">
+          <h1 id="blog-title" style="font-size: 1.8rem; font-weight: 700; margin-bottom: 10px">
+            Loading...
+          </h1>
+          <p id="blog-desc" style="color: #666; margin-bottom: 15px">...</p>
+          <div class="profile-meta" style="font-size: 0.9rem">
+            <span id="profile-name" style="font-weight: bold"></span>
+            <span
+              class="divider"
+              id="profile-divider"
+              style="display: none; margin: 0 10px; color: #ccc"
+              >/</span
+            >
+            <span id="profile-bio"></span>
+          </div>
+
+          <!-- ソートボタン -->
+          <div
+            class="header-sort-controls"
+            id="sort-area"
+            style="margin-top: 25px; display: flex; justify-content: center; gap: 15px"
+          >
+            <button
+              id="sort-new"
+              style="
+                border: none;
+                background: none;
+                cursor: pointer;
+                font-weight: bold;
+                font-size: 0.9rem;
+              "
+            >
+              New
+            </button>
+            <span class="sort-divider" style="color: #ccc">|</span>
+            <button
+              id="sort-old"
+              style="
+                border: none;
+                background: none;
+                cursor: pointer;
+                color: #888;
+                font-size: 0.9rem;
+              "
+            >
+              Old
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <div class="container blog-container">
+      <main id="main-content" class="post-grid">
+        <p style="text-align: center">Loading contents...</p>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-nav">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="privacy.html">PRIVACY POLICY</a>
+      </div>
+      <p class="copyright">&copy; 2025 FukuFukuBlog.</p>
+      <!-- スタッフ用（隠し要素） -->
+      <div style="margin-top: 15px">
+        <a
+          href="login.html"
+          class="staff-gate"
+          style="
+            font-size: 0.75rem;
+            color: #ccc;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+          "
+        >
+          <i class="fa-solid fa-lock"></i> Staff Only
+        </a>
+      </div>
+    </footer>
+
+    <!-- ARGオーバーレイ -->
+    <div id="secret-overlay" class="hidden"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ending | FukuFukuBlog ARG</title>
+    <link rel="icon" href="dinosaurs2.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Ending Page Specific Styles */
+      body.ending-body {
+        background-color: #111;
+        color: #eee;
+        font-family: var(--font-jp);
+        display: block; /* style.cssのflexを上書き */
+        height: auto;
+        min-height: 100vh;
+      }
+
+      .ending-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 80px 20px;
+        text-align: center;
+      }
+
+      .ending-logo {
+        font-family: var(--font-en);
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        margin-bottom: 60px;
+        color: #fff;
+        opacity: 0;
+        animation: fadeIn 1s ease forwards;
+      }
+
+      .message-box {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid #333;
+        padding: 40px;
+        border-radius: 8px;
+        margin-bottom: 50px;
+        text-align: left;
+        opacity: 0;
+        animation: fadeIn 1s ease 0.5s forwards;
+      }
+
+      .message-box h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: var(--primary); /* 緑 */
+        border-bottom: 1px solid #444;
+        padding-bottom: 10px;
+      }
+
+      .message-box p {
+        margin-bottom: 1.5em;
+        line-height: 1.8;
+        color: #ccc;
+      }
+
+      .message-box .signature {
+        text-align: right;
+        font-weight: bold;
+        margin-top: 30px;
+      }
+
+      .action-area {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        opacity: 0;
+        animation: fadeIn 1s ease 1s forwards;
+      }
+
+      .survey-link {
+        display: block;
+        background: var(--accent); /* 赤 */
+        color: #fff;
+        padding: 20px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 4px;
+        transition: all 0.3s;
+        font-size: 1.1rem;
+      }
+      .survey-link:hover {
+        background: #c0392b;
+        transform: translateY(-2px);
+      }
+
+      .back-home {
+        color: #777;
+        font-size: 0.9rem;
+        text-decoration: underline;
+        margin-top: 20px;
+        display: inline-block;
+      }
+      .back-home:hover {
+        color: #fff;
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body class="ending-body">
+    <div class="ending-container">
+      <div class="ending-logo">THANK YOU FOR PLAYING</div>
+
+      <div class="message-box">
+        <h2>制作コメント</h2>
+        <p>
+          最後まで「ふたつの△○□」をプレイしていただき、ありがとうございました。<br />
+          この物語はフィクションですが、舞台となっている福井の風景や、映画制作にかける学生たちの熱意は本物です。
+        </p>
+        <p>
+          「完成された映画」を見るだけでは伝わらない、制作現場のドタバタや、仲間と一つのものを作り上げる喜び。<br />
+          それを少しでも追体験してもらいたくて、このARG（代替現実ゲーム）を制作しました。
+        </p>
+        <p>
+          もし、この体験を通して「自分も何か作ってみたい」「現場に行ってみたい」と少しでも感じていただけたなら、制作者としてこれ以上の喜びはありません。
+        </p>
+        <div class="signature">
+          FukuFukuBlog 制作チーム<br />
+          （中川 緋菜）
+        </div>
+      </div>
+
+      <div class="action-area">
+        <!-- 実際のGoogleフォーム等のURLに差し替えてください -->
+        <a href="https://forms.gle/YOUR_FORM_ID_HERE" target="_blank" class="survey-link">
+          <i class="fa-regular fa-comment-dots"></i> アンケートに回答する
+        </a>
+
+        <p style="font-size: 0.8rem; color: #666; margin-top: 10px">
+          ※今後の研究・制作の参考にさせていただきます。
+        </p>
+
+        <a href="index.html" class="back-home">トップページに戻る</a>
+      </div>
+    </div>
+  </body>
+</html>
